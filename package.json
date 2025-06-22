@@ -1,0 +1,37 @@
+{
+  "name": "@proctorio/observe",
+  "version": "1.0.0",
+  "description": "Proctorio SDK for third party integration.",
+  "main": "./lib/index.js",
+  "files": [
+    "/lib/**/*.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/proctorio/observe.js.git"
+  },
+  "type": "module",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "build-windows": "xcopy src lib /E /I /Y",
+    "build-linux": "cp -R src lib"
+  },
+  "esm": {
+    "cjs": true
+  },
+  "keywords": [],
+  "author": "Proctorio",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/proctorio/observe.js/issues"
+  },
+  "homepage": "https://github.com/proctorio/observe.js#readme",
+  "devDependencies": {
+    "jest": "29.7.0",
+    "jest-environment-jsdom": "29.7.0"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "transform": {}
+  }
+}

@@ -1,0 +1,10 @@
+test/
+tests/
+src/
+*.test.js
+*.spec.js
+_build
+_package
+node_modules
+package-lock.json
+/.vscode
