@@ -1,6 +1,6 @@
 {
   "name": "@proctorio/observe",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Proctorio SDK for third party integration.",
   "main": "./lib/index.js",
   "files": [
