@@ -19,8 +19,6 @@ export default class Observe {
     #connectingInterval = null;
     #T = OBSERVE_TYPES;
 
-
-
     #triggerOnceTypes = new Set([
         this.#T.START_EXAM,
         this.#T.TAKE_EXAM,
