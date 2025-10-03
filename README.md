@@ -1,112 +1,173 @@
-#  Observe
+# Observe.js
 
-This package allows you to subscribe to key events triggered by Proctorio during the lifecycle of an online exam. It is intended to help developers listen to events and handle custom logic.
+A JavaScript SDK for subscribing to Proctorio exam monitoring events. This library enables developers to listen to key events during online exam lifecycles and implement custom logic for exam monitoring and security.
 
-##  Supported Events
+## Features
 
-Subscribe to the following exam-related events:
+- **Event-driven architecture** for real-time exam monitoring
+- **Singleton pattern** ensures consistent state across your application
+- **Cross-origin communication** with Proctorio browser extension
+- **Multiple build formats** (ESM, CommonJS, IIFE) for flexible integration
 
-* `startExam` – Triggered when the exam is started.
-* `takeExam` – Triggered when the user begins taking the exam.
-* `startDeskScan` – Triggered when the desk scan process starts.
-* `endDeskScan` – Triggered when the desk scan process ends.
-* `endExam` – Triggered when the end exam logic is triggered.
-* `examCloseCode` – Triggered when the exam is closed with a specific code.
-* `flags` – Flags are checked at intervals of either 500ms or 200ms. If at least one flag is positive, a callback will be triggered with an object containing the positive flags. Be mindful that some flags are sent frequently when their values are positive.
-
-
-##  Installation
+## Installation
 
 ```bash
 npm install @proctorio/observe
 ```
 
-##  Usage
+## Quick Start
 
-```js
+```javascript
 import Observe from '@proctorio/observe';
 
-const observeInstance = new Observe();
+// Create observe instance (singleton)
+const observe = new Observe();
 
-observeInstance.startExam(callback)
+// Listen for exam start
+observe.startExam((data) => {
+  console.log('Exam started at offset:', data.offset);
+});
 
-// in case you expect some data:
-observeInstance.examCloseCode((data)=>{
-	console.log(data.closeCode);
-})
+// Listen for security flags
+observe.flags((data) => {
+  console.log('Security flags detected:', data.flagsData);
+  console.log('Time offset:', data.offset);
+});
 ```
 
+## Supported Events
 
-## Event Data
+### One-time Events
+These events trigger only once during the exam lifecycle:
 
-Each event triggers a callback function. All events include a data payload with an offset value. However, the `examCloseCode` event includes both offset and closeCode values, while the `flags` event includes offset and a flags object.
-- offset represents the offset in milliseconds from the exam start time.
+- **`startExam`** - Fired when the exam officially begins
+- **`takeExam`** - Fired when the user starts taking the exam
+- **`startDeskScan`** - Fired when desk scanning process starts
+- **`endDeskScan`** - Fired when desk scanning process completes
+- **`endExam`** - Fired when exam ending logic is triggered
+- **`examCloseCode`** - Fired when exam closes with a specific close code
 
+### Recurring Events
+- **`flags`** - Fired every 200-500ms when security flags are detected. Contains an object with boolean flags for various security violations.
 
-### `examCloseCode`
-```ts
+## Event Data Structure
+
+All events include a `data` object with an `offset` property representing milliseconds from exam start time.
+
+### Common Event Data
+```javascript
 {
-  closeCode: number,
-  offset: number
+  offset: 1000 // milliseconds from exam start
 }
 ```
 
-### `startExam`
-```ts
-data: {
-  offset: number
+### examCloseCode Event
+```javascript
+{
+  offset: 5000, // milliseconds from exam start
+  closeCode: 42 // specific close code number
 }
 ```
 
-### `takeExam`
-```ts
-data: {
-  offset: number
-}
-```
-### `startDeskScan`
-
-```ts
-data: {
-  offset: number
-}
-```
-### `endDeskScan`
-```ts
-data: {
-  offset: number
-}
-```
-
-### `endExam`
-```ts
-data: {
-  offset: number
-}
-```
-### `flags`
-```ts
-data: {
-  offset: number
+### flags Event
+```javascript
+{
+  offset: 2000, // milliseconds from exam start
   flagsData: {
-    unfocus_detected?: boolean,
-    clipboard_detected?: boolean, 
-    browser_resize_detected?: boolean, 
-    multiple_faces_detected?: boolean, 
-    leaving_exam_area_detected?: boolean, 
-    speaking_detected?: boolean, 
-    ai_detected?: boolean, 
-    printing_detected?: boolean, 
-    screenshot_detected?: boolean, 
-    hardware_change_detected?: boolean, 
-    external_action_detected?: boolean, 
-    webcam_obscured_detected?: boolean, 
-    mobile_phone_detected?: boolean 
-    }
+    unfocus_detected: true,
+    clipboard_detected: false,
+    browser_resize_detected: false,
+    multiple_faces_detected: true,
+    leaving_exam_area_detected: false,
+    speaking_detected: false,
+    ai_detected: false,
+    printing_detected: false,
+    screenshot_detected: false,
+    hardware_change_detected: false,
+    external_action_detected: false,
+    webcam_obscured_detected: false,
+    mobile_phone_detected: false
+  }
 }
 ```
 
-## ```Important```: 
+## API Reference
 
-1. Some events triggered during page transitions (e.g., endExam and examCloseCode callbacks) may not execute in Observe due to the context in which they are called - during the page's unload phase in case of reload page.
-2. Avoid initializing Observe on exam_end page, as it will have no effect. Additionally, Observe will repeatedly attempt to initialize a channel to the extension via an setInterval and postMessage.
+### Constructor
+```javascript
+const observe = new Observe();
+```
+Returns a singleton instance of the Observe class.
+
+### Event Subscription Methods
+
+#### `observe.startExam(callback)`
+Subscribe to exam start events.
+
+#### `observe.takeExam(callback)`
+Subscribe to exam taking events.
+
+#### `observe.startDeskScan(callback)`
+Subscribe to desk scan start events.
+
+#### `observe.endDeskScan(callback)`
+Subscribe to desk scan completion events.
+
+#### `observe.endExam(callback)`
+Subscribe to exam end events.
+
+#### `observe.examCloseCode(callback)`
+Subscribe to exam close code events.
+
+#### `observe.flags(callback)`
+Subscribe to security flag detection events.
+
+**Parameters:**
+- `callback` (function): Function to execute when the event fires. Receives event data as parameter.
+
+## Browser Support
+
+- Modern browsers with ES6+ support
+- Requires `window.top.postMessage` and `window.addEventListener` APIs
+- Compatible with Proctorio browser extension
+
+## Important Notes
+
+⚠️ **Page Transition Limitations**: Events triggered during page transitions (like `endExam` and `examCloseCode`) may not execute reliably due to browser unload behavior.
+
+⚠️ **Initialization Context**: Avoid initializing Observe on exam completion pages as it will have no effect.
+
+⚠️ **Connection Behavior**: The SDK automatically attempts to establish communication with the Proctorio extension using periodic message passing until successful connection.
+
+## Development
+
+### Building
+```bash
+npm run build  # Creates ESM, CommonJS, and minified IIFE builds in lib/
+```
+
+### Testing
+```bash
+npm test  # Run Jest tests with jsdom environment
+```
+
+### Build Outputs
+- `lib/index.esm.js` - ES module format
+- `lib/index.cjs.js` - CommonJS format
+- `lib/index.min.js` - Minified IIFE for browser use
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes with tests
+4. Ensure all tests pass
+5. Submit a pull request
+
+## License
+
+Apache License 2.0 - see [LICENCE](LICENCE) file for details.
+
+## Support
+
+For issues and questions, please [open an issue](https://github.com/proctorio/observe.js/issues) on GitHub.
