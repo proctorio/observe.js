@@ -25,7 +25,13 @@ export default class Observe {
         this.#T.START_DESK_SCAN,
         this.#T.END_DESK_SCAN,
         this.#T.END_EXAM,
-        this.#T.EXAM_CLOSE_CODE
+        this.#T.EXAM_CLOSE_CODE,
+        this.#T.PROCTOR_KICKED_OUT
+    ]);
+
+    #multipleTriggerTypes = new Set([
+        this.#T.PROCTOR_INTERRUPTED,
+        this.#T.PROCTOR_RESUMED
     ]);
 
     #initConnection() {
@@ -43,6 +49,7 @@ export default class Observe {
         const isRelevantType =
             type === this.#T.CONNECT_SUCCESS ||
             type === this.#T.FLAGS_PAYLOAD ||
+            this.#multipleTriggerTypes.has(type) || 
             this.#triggerOnceTypes.has(type);
 
         if (isRelevantType && this.#connectingInterval) {
@@ -53,8 +60,8 @@ export default class Observe {
     #isValidType(type) {
         const isFlagType = type === this.#T.FLAGS_PAYLOAD;
         const isTriggerOnceType = this.#triggerOnceTypes.has(type) && !this.#processedTypes.has(type);
-
-        return isFlagType || isTriggerOnceType;
+        const isMultipleTriggerType = this.#multipleTriggerTypes.has(type);
+        return isFlagType || isTriggerOnceType || isMultipleTriggerType;
     }
 
     #initListener() {
@@ -108,5 +115,17 @@ export default class Observe {
 
     flags(callback) {
         this.#register(this.#T.FLAGS_PAYLOAD, callback);
+    }
+
+    proctorInterrupted(callback) {
+        this.#register(this.#T.PROCTOR_INTERRUPTED, callback);
+    }
+
+    proctorResumed(callback) {
+        this.#register(this.#T.PROCTOR_RESUMED, callback);
+    }
+
+    proctorKickedOut(callback) {
+        this.#register(this.#T.PROCTOR_KICKED_OUT, callback);
     }
 }

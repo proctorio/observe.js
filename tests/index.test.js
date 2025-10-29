@@ -116,7 +116,8 @@ describe('Observe Class Tests', () => {
                 { type: "startDeskScan", method: 'startDeskScan' },
                 { type: "endDeskScan", method: 'endDeskScan' },
                 { type: "endExam", method: 'endExam' },
-                { type: "examCloseCode", method: 'examCloseCode' }
+                { type: "examCloseCode", method: 'examCloseCode' },
+                { type: "proctorKickedOut", method: 'proctorKickedOut' }
             ];
 
             events.forEach(({ type, method }) => {
@@ -132,6 +133,36 @@ describe('Observe Class Tests', () => {
 
                 expect(callback).toHaveBeenCalledWith({ offset: 1000 });
                 expect(callback).toHaveBeenCalledTimes(1);
+            });
+        });
+
+        test('should process all multiple trigger event types multiple times', () => {
+            const events = [
+                { type: "proctorInterrupted", method: 'proctorInterrupted' },
+                { type: "proctorResumed", method: 'proctorResumed' }
+            ];
+
+            events.forEach(({ type, method }) => {
+                const callback = jest.fn();
+                observeInstance[method](callback);
+
+                const e1 = {
+                    data: { type, payload: { offset: 1000 } },
+                    origin: window.top.origin,
+                };
+
+                const e2 = {
+                    data: { type, payload: { offset: 2000 } },
+                    origin: window.top.origin,
+                };
+
+                listenerFunction(e1);
+                listenerFunction(e2);
+
+                expect(callback).toHaveBeenCalledWith({ offset: 1000 });
+                expect(callback).toHaveBeenCalledWith({ offset: 2000 });
+
+                expect(callback).toHaveBeenCalledTimes(2);
             });
         });
 

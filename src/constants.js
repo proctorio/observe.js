@@ -7,7 +7,10 @@ const OBSERVE_TYPES = {
     EXAM_CLOSE_CODE: "examCloseCode",
     FLAGS_PAYLOAD: "flagsPayload",
     CONNECT_SUCCESS: "proctorioConnectSuccess",
-    CONNECTION_INIT: "proctorioConnectionInit"
+    CONNECTION_INIT: "proctorioConnectionInit",
+    PROCTOR_INTERRUPTED: "proctorInterrupted",
+    PROCTOR_RESUMED: "proctorResumed",
+    PROCTOR_KICKED_OUT: "proctorKickedOut"
 }
 
 export default OBSERVE_TYPES;
