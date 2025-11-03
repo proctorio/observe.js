@@ -33,6 +33,23 @@ observe.flags((data) => {
   console.log('Security flags detected:', data.flagsData);
   console.log('Time offset:', data.offset);
 });
+
+// Listen for live proctor events - available in live proctor exams:
+
+//Listen for exam interrupted
+observe.proctorInterrupted((data) => {
+  console.log('Exam interrupted at offset:', data.offset);
+});
+
+//Listen for exam resumed
+observe.proctorResumed((data) => {
+  console.log('Exam resumed at offset:', data.offset);
+});
+
+//Listen for live proctor kickout 
+observe.proctorKickedOut((data) => {
+  console.log('Candidate kicked out from exam at offset:', data.offset);
+});
 ```
 
 ## Supported Events
@@ -46,9 +63,15 @@ These events trigger only once during the exam lifecycle:
 - **`endDeskScan`** - Fired when desk scanning process completes
 - **`endExam`** - Fired when exam ending logic is triggered
 - **`examCloseCode`** - Fired when exam closes with a specific close code
+- **`proctorKickedOut`** - Fired when a sudent is kicked out by live proctor during an exam
 
 ### Recurring Events
 - **`flags`** - Fired every 200-500ms when security flags are detected. Contains an object with boolean flags for various security violations.
+
+### Multi-trigger Events
+- **`proctorInterrupted`** - Fired when live proctor interrupts the exam, can happen multiple times during an exam.
+- **`proctorResumed`** - Fired when live proctor resumes the interrupted exam, can happen multiple times during an exam.
+
 
 ## Event Data Structure
 
@@ -121,6 +144,15 @@ Subscribe to exam close code events.
 
 #### `observe.flags(callback)`
 Subscribe to security flag detection events.
+
+#### `observe.proctorInterrupted(callback)`
+Subscribe to live proctor exam interrupted events.
+
+#### `observe.proctorResumed(callback)`
+Subscribe to live proctor exam resumed events.
+
+#### `observe.proctorKickedOut(callback)`
+Subscribe to live proctor exam kickout events.
 
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.
