@@ -41,7 +41,7 @@ export default [
       file: 'lib/index.cjs.js',
       format: 'cjs',
       sourcemap: true,
-      exports: 'default',
+      exports: 'named',
       banner: licenseBanner,
     },
     plugins: [resolve(), commonjs(), terser()],
@@ -54,7 +54,7 @@ export default [
       format: 'iife',
       name,
       sourcemap: true,
-      exports: 'default',
+      exports: 'named',
       esModule: false,
       banner: licenseBanner
     },

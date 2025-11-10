@@ -1,5 +1,5 @@
 import { jest } from '@jest/globals';
-import Observe from '../src/index.js'
+import { Observe } from '../src/index.js'
 
 beforeEach(() => {
     jest.spyOn(window.top, "addEventListener").mockImplementation(jest.fn());

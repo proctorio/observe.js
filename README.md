@@ -18,7 +18,7 @@ npm install @proctorio/observe
 ## Quick Start
 
 ```javascript
-import Observe from '@proctorio/observe';
+import { Observe } from '@proctorio/observe';
 
 // Create observe instance (singleton)
 const observe = new Observe();

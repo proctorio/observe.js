@@ -1,6 +1,6 @@
 import OBSERVE_TYPES from './constants.js'
 
-export default class Observe {
+class Observe {
     static #instance = null;
 
     constructor() {
@@ -129,3 +129,5 @@ export default class Observe {
         this.#register(this.#T.PROCTOR_KICKED_OUT, callback);
     }
 }
+
+export { OBSERVE_TYPES, Observe };
