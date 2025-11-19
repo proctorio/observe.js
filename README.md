@@ -11,18 +11,37 @@ A JavaScript SDK for subscribing to Proctorio exam monitoring events. This libra
 
 ## Installation
 
+### Using npm (Node.js)
 ```bash
 npm install @proctorio/observe
+```
+### Using jsDelivr (CDN)
+Observe.js is hosted on jsDelivr. 
+The example below is using the latest package version at the time this README was updated (version 1.0.6), but by following the link https://www.jsdelivr.com/package/npm/@proctorio/observe you can see which versions are available and which is the latest version.
+
+The package can be istalled by adding the following script to the `<head>` tag:
+
+```html
+<script src="https://cdn.jsdelivr.net/npm/@proctorio/observe@1.0.6/lib/index.min.js"></script>
 ```
 
 ## Quick Start
 
+### 1. Create Observe instance
+#### Node.js
 ```javascript
 import { Observe } from '@proctorio/observe';
 
 // Create observe instance (singleton)
 const observe = new Observe();
-
+```
+#### JsDelivr
+```javascript
+// Create observe instance (singleton)
+const observe = new Observe.Observe();
+```
+### 2. Listen for events
+```javascript
 // Listen for exam start
 observe.startExam((data) => {
   console.log('Exam started at offset:', data.offset);
