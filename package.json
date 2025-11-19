@@ -1,6 +1,6 @@
 {
   "name": "@proctorio/observe",
-  "version": "1.0.0",
+  "version": "1.0.7",
   "description": "JavaScript SDK for subscribing to Proctorio exam monitoring events and implementing custom logic for online exam security.",
   "main": "./lib/index.cjs.js",
   "module": "./lib/index.esm.js",
