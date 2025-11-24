@@ -10,7 +10,8 @@ const OBSERVE_TYPES = {
     CONNECTION_INIT: "proctorioConnectionInit",
     PROCTOR_INTERRUPTED: "proctorInterrupted",
     PROCTOR_RESUMED: "proctorResumed",
-    PROCTOR_KICKED_OUT: "proctorKickedOut"
+    PROCTOR_KICKED_OUT: "proctorKickedOut",
+    PROCTORIO_STATUS: "proctorio_status"
 }
 
 export default OBSERVE_TYPES;

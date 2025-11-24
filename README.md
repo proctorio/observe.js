@@ -69,6 +69,21 @@ observe.proctorResumed((data) => {
 observe.proctorKickedOut((data) => {
   console.log('Candidate kicked out from exam at offset:', data.offset);
 });
+
+// Check if Proctorio extension is running
+
+// send (emit) Proctorio status request
+
+// getproctorio
+observe.proctorioStatusRequest();
+
+//custom domain
+observe.proctorioStatusRequest("https://your_custom_domain");
+
+// listen for response
+observe.proctorioStatusResponse((data) => {
+  console.log("Proctorio is running: " + data.active);
+});
 ```
 
 ## Supported Events
@@ -90,11 +105,14 @@ These events trigger only once during the exam lifecycle:
 ### Multi-trigger Events
 - **`proctorInterrupted`** - Fired when live proctor interrupts the exam, can happen multiple times during an exam.
 - **`proctorResumed`** - Fired when live proctor resumes the interrupted exam, can happen multiple times during an exam.
+- **`proctorioStatusResponse`** - Fired as a response to proctorio status check message
 
+### Sending requests through post message
+- **`proctorioStatusRequest`** - Send message to check if Proctorio is active on exam
 
 ## Event Data Structure
 
-All events include a `data` object with an `offset` property representing milliseconds from exam start time.
+All events include a `data` object. All event `data` objects, except for those related to `proctorioStatusResponse`, have an `offset` property representing milliseconds from exam start time.
 
 ### Common Event Data
 ```javascript
@@ -130,6 +148,13 @@ All events include a `data` object with an `offset` property representing millis
     webcam_obscured_detected: false,
     mobile_phone_detected: false
   }
+}
+```
+
+### proctorioStatusResponse Event
+```javascript
+{
+  active: true
 }
 ```
 
@@ -173,8 +198,12 @@ Subscribe to live proctor exam resumed events.
 #### `observe.proctorKickedOut(callback)`
 Subscribe to live proctor exam kickout events.
 
+### `observe.proctorioStatusRequest(origin), observe.proctorioStatusResponse(callback)`
+Subscribe to proctorio status check events.
+
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.
+- `origin` (string): Optional string parameter for `proctorioStatusRequest`. The default value is the getproctorio origin. If you are using a custom domains, you should use your domain as the parameter.
 
 ## Browser Support
 

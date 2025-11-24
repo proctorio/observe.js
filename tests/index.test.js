@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals';
+import { beforeEach, jest } from '@jest/globals';
 import { Observe } from '../src/index.js'
 
 beforeEach(() => {
@@ -139,7 +139,8 @@ describe('Observe Class Tests', () => {
         test('should process all multiple trigger event types multiple times', () => {
             const events = [
                 { type: "proctorInterrupted", method: 'proctorInterrupted' },
-                { type: "proctorResumed", method: 'proctorResumed' }
+                { type: "proctorResumed", method: 'proctorResumed' },
+                { type: "proctorio_status", method: 'proctorioStatusResponse' }
             ];
 
             events.forEach(({ type, method }) => {
@@ -232,6 +233,27 @@ describe('Observe Class Tests', () => {
             expect(() => badListenerFunction(e)).not.toThrow();
         });
 
+        test('should handle proctorio status response', () => {
+            const callback = jest.fn();
+            observeInstance.proctorioStatusResponse(callback);
+
+            const e = {
+                data: { 
+                    type: "proctorio_status", 
+                    payload: { 
+                        active: true
+                    } 
+                },
+                origin: window.top.origin,
+            };
+
+            listenerFunction(e);
+
+            expect(callback).toHaveBeenCalledWith({ 
+               active: true
+            });
+        });
+
         test('should handle complex flags data structure', () => {
             const callback = jest.fn();
             observeInstance.flags(callback);
@@ -289,6 +311,31 @@ describe('Observe Class Tests', () => {
 
             // Should not throw error
             expect(() => listenerFunction(e)).not.toThrow();
+        });        
+    });
+
+    describe("Proctorio status request tests", () =>
+    {
+        let observeInstance;
+        beforeEach(() => {
+            observeInstance = new Observe();
+            jest.spyOn(window.top, 'postMessage').mockImplementation(jest.fn());
+        });
+
+        afterEach(() => {
+            jest.clearAllMocks();
+        });
+
+        test('should send proctorio status request to getproctorio', () => {                
+            observeInstance.proctorioStatusRequest();
+
+            expect(window.top.postMessage).toHaveBeenCalledWith([ "proctorio_status" ], "https://getproctorio.com");                
+        });
+
+        test('should send proctorio status request to custom domain', () => {                
+            observeInstance.proctorioStatusRequest("http://test.com");
+
+            expect(window.top.postMessage).toHaveBeenCalledWith([ "proctorio_status" ], "http://test.com");                
         });
     });
 });

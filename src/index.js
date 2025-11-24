@@ -31,7 +31,8 @@ class Observe {
 
     #multipleTriggerTypes = new Set([
         this.#T.PROCTOR_INTERRUPTED,
-        this.#T.PROCTOR_RESUMED
+        this.#T.PROCTOR_RESUMED,
+        this.#T.PROCTORIO_STATUS
     ]);
 
     #initConnection() {
@@ -127,6 +128,14 @@ class Observe {
 
     proctorKickedOut(callback) {
         this.#register(this.#T.PROCTOR_KICKED_OUT, callback);
+    }
+
+    proctorioStatusResponse(callback) {
+        this.#register(this.#T.PROCTORIO_STATUS, callback);
+    }
+
+    proctorioStatusRequest(origin = "https://getproctorio.com") {
+        window.top.postMessage([ this.#T.PROCTORIO_STATUS ], origin);
     }
 }
 
