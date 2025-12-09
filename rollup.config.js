@@ -17,7 +17,7 @@ const licenseBanner = `/*!
  * limitations under the License.
  */`;
 
-const name = 'Observe';
+const name = 'ObserveSDK';
 export default [
   // ESM build
   {

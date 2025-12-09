@@ -22,7 +22,7 @@ The example below is using the latest package version at the time this README wa
 The package can be istalled by adding the following script to the `<head>` tag:
 
 ```html
-<script src="https://cdn.jsdelivr.net/npm/@proctorio/observe@1.0.6/lib/index.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@proctorio/observe@1.0.9/lib/index.min.js"></script>
 ```
 
 ## Quick Start
@@ -38,7 +38,7 @@ const observe = new Observe();
 #### JsDelivr
 ```javascript
 // Create observe instance (singleton)
-const observe = new Observe.Observe();
+const observe = new ObserveSDK.Observe();
 ```
 ### 2. Listen for events
 ```javascript
