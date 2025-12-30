@@ -11,7 +11,11 @@ const OBSERVE_TYPES = {
     PROCTOR_INTERRUPTED: "proctorInterrupted",
     PROCTOR_RESUMED: "proctorResumed",
     PROCTOR_KICKED_OUT: "proctorKickedOut",
-    PROCTORIO_STATUS: "proctorio_status"
+    PROCTORIO_STATUS: "proctorio_status",
+    BREAK_STARTED: "breakStarted",
+    BREAK_ENDED: "breakEnded",
+    BREAK_EXCEEDED: "breakExceeded",
+    BREAK_GIVEN: "breakGiven"
 }
 
 export default OBSERVE_TYPES;

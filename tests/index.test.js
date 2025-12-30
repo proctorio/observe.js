@@ -140,7 +140,11 @@ describe('Observe Class Tests', () => {
             const events = [
                 { type: "proctorInterrupted", method: 'proctorInterrupted' },
                 { type: "proctorResumed", method: 'proctorResumed' },
-                { type: "proctorio_status", method: 'proctorioStatusResponse' }
+                { type: "proctorio_status", method: 'proctorioStatusResponse' },
+                { type: "breakStarted", method: 'breakStarted'},
+                { type: "breakEnded", method: 'breakEnded'},
+                { type: "breakExceeded", method: 'breakExceeded'},
+                { type: "breakGiven", method: 'breakGiven'}
             ];
 
             events.forEach(({ type, method }) => {

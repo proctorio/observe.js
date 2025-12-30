@@ -32,7 +32,11 @@ class Observe {
     #multipleTriggerTypes = new Set([
         this.#T.PROCTOR_INTERRUPTED,
         this.#T.PROCTOR_RESUMED,
-        this.#T.PROCTORIO_STATUS
+        this.#T.PROCTORIO_STATUS,
+        this.#T.BREAK_STARTED,
+        this.#T.BREAK_ENDED,
+        this.#T.BREAK_EXCEEDED,
+        this.#T.BREAK_GIVEN
     ]);
 
     #initConnection() {
@@ -136,6 +140,22 @@ class Observe {
 
     proctorioStatusRequest(origin = "https://getproctorio.com") {
         window.top.postMessage([ this.#T.PROCTORIO_STATUS ], origin);
+    }
+
+    breakStarted(callback) {
+        this.#register(this.#T.BREAK_STARTED, callback)
+    }
+
+    breakEnded(callback) {
+        this.#register(this.#T.BREAK_ENDED, callback)
+    }
+
+    breakExceeded(callback) {
+        this.#register(this.#T.BREAK_EXCEEDED, callback)
+    }
+
+    breakGiven(callback) {
+        this.#register(this.#T.BREAK_GIVEN, callback)
     }
 }
 

@@ -84,6 +84,29 @@ observe.proctorioStatusRequest("https://your_custom_domain");
 observe.proctorioStatusResponse((data) => {
   console.log("Proctorio is running: " + data.active);
 });
+
+
+// Listen for break events
+
+// Listen for break started
+observe.breakStarted((data) => {
+  console.log('Candidate started break at offset:', data.offset);
+});
+
+// Listen for break ended
+observe.breakEnded((data) => {
+  console.log('Break ended at offset:', data.offset);
+});
+
+// Listen for break exceeded
+observe.breakExceeded((data) => {
+  console.log('Break exceeded at offset:', data.offset);
+});
+
+// Listen for break given
+observe.breakGiven((data) => {
+  console.log('Proctor gave break at offset:', data.offset);
+});
 ```
 
 ## Supported Events
@@ -106,6 +129,10 @@ These events trigger only once during the exam lifecycle:
 - **`proctorInterrupted`** - Fired when live proctor interrupts the exam, can happen multiple times during an exam.
 - **`proctorResumed`** - Fired when live proctor resumes the interrupted exam, can happen multiple times during an exam.
 - **`proctorioStatusResponse`** - Fired as a response to proctorio status check message
+- **`breakStarted`** - Fired when a break is started by candidate
+- **`breakEnded`** - Fired when a break ends
+- **`breakExceeded`** - Fired when the candidate exceeds the break duration
+- **`breakGiven`** - Fired when a break is given by proctor
 
 ### Sending requests through post message
 - **`proctorioStatusRequest`** - Send message to check if Proctorio is active on exam
@@ -198,8 +225,20 @@ Subscribe to live proctor exam resumed events.
 #### `observe.proctorKickedOut(callback)`
 Subscribe to live proctor exam kickout events.
 
-### `observe.proctorioStatusRequest(origin), observe.proctorioStatusResponse(callback)`
+#### `observe.proctorioStatusRequest(origin), observe.proctorioStatusResponse(callback)`
 Subscribe to proctorio status check events.
+
+#### `observe.breakStarted(callback)`
+Subscribe to proctorio break started events.
+
+#### `observe.breakEnded(callback)`
+Subscribe to proctorio break ended events.
+
+#### `observe.breakExceeded(callback)`
+Subscribe to proctorio break exceeded events.
+
+#### `observe.breakGiven(callback)`
+Subscribe to proctorio break given events.
 
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.
