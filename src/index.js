@@ -77,10 +77,10 @@ class Observe {
 
             this.#clearInitConnectionInterval(type);
 
-            if (this.#isValidType(type)) {
+            if (this.#isValidType(type) && Object.hasOwn(this.#handlers, type)) {
                 const callback = this.#handlers[type];
 
-                if (callback && typeof callback === "function") {
+                if (typeof callback === "function") {
                     if (this.#triggerOnceTypes.has(type)) this.#processedTypes.add(type);
                     callback(payload);
                 }
