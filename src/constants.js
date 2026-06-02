@@ -15,7 +15,9 @@ const OBSERVE_TYPES = {
     BREAK_STARTED: "breakStarted",
     BREAK_ENDED: "breakEnded",
     BREAK_EXCEEDED: "breakExceeded",
-    BREAK_GIVEN: "breakGiven"
+    BREAK_GIVEN: "breakGiven",
+    CONNECTION_UNSTABLE: "connectionUnstable",
+    CONNECTION_KICKOUT: "connectionKickout"
 }
 
 export default OBSERVE_TYPES;

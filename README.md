@@ -107,6 +107,24 @@ observe.breakExceeded((data) => {
 observe.breakGiven((data) => {
   console.log('Proctor gave break at offset:', data.offset);
 });
+
+// Listen for connection unstable
+observe.connectionUnstable((data) => {
+  console.log('Connection unstable detected, connection info - jitter (in milliseconds):', data.connectionInfo.jitter);
+  console.log('Connection unstable detected, connection info - latency (in milliseconds):', data.connectionInfo.latency);
+  console.log('Connection unstable detected, connection info - upload speed (in bytes/milliseconds):', data.connectionInfo.uploadSpeed);
+  console.log('Connection unstable detected, connection info - frames lost:', data.connectionInfo.framesLost);
+  console.log('Connection unstable detected, connection info - heartbeats lost:', data.connectionInfo.heartbeatsLost);
+  console.log('Connection unstable detected, connection info - milliseconds since last response:', data.connectionInfo.msSinceLastResponse);
+  console.log('Connection unstable detected, offset:', data.offset);
+});
+
+// Listen for connection kickout
+observe.connectionKickout((data) => {
+    console.log('Connection kickout detected, connection info - jitter (in milliseconds):', data.connectionInfo.jitter);
+    console.log('Connection kickout detected, connection info - latency (in milliseconds):', data.connectionInfo.latency);
+    console.log('Connection kickout detected, connection info - upload speed (in bytes/milliseconds):', data.connectionInfo.uploadSpeed);
+});
 ```
 
 ## Supported Events
@@ -121,6 +139,7 @@ These events trigger only once during the exam lifecycle:
 - **`endExam`** - Fired when exam ending logic is triggered
 - **`examCloseCode`** - Fired when exam closes with a specific close code
 - **`proctorKickedOut`** - Fired when a sudent is kicked out by live proctor during an exam
+- **`connectionKickout`** - Fired when a sudent is kicked out when disconnecting from server during an exam, e.g. lost connection, unable to reconnect
 
 ### Recurring Events
 - **`flags`** - Fired every 200-500ms when security flags are detected. Contains an object with boolean flags for various security violations.
@@ -133,6 +152,7 @@ These events trigger only once during the exam lifecycle:
 - **`breakEnded`** - Fired when a break ends
 - **`breakExceeded`** - Fired when the candidate exceeds the break duration
 - **`breakGiven`** - Fired when a break is given by proctor
+- **`connectionUnstable`** - Fired when unstable connection is detected
 
 ### Sending requests through post message
 - **`proctorioStatusRequest`** - Send message to check if Proctorio is active on exam
@@ -182,6 +202,33 @@ All events include a `data` object. All event `data` objects, except for those r
 ```javascript
 {
   active: true
+}
+```
+
+### connectionUnstable Event
+```javascript
+{
+  {
+    framesLost: 61,
+    heartbeatsLost: 3,
+    msSinceLastResponse: 30667, // in milliseconds, if not applicable -1
+    uploadSpeed: 2398, // in bytes/milliseconds, if not applicable -1
+    latency: 185, // in milliseconds, if not applicable -1
+    jitter: 146 // in milliseconds, if not applicable -1
+  },
+  offset: 190412, // milliseconds from exam start
+}
+```
+
+### connectionKickout Event
+```javascript
+{
+  {
+    uploadSpeed: 2398, // in bytes/milliseconds, if not applicable -1
+    latency: 185, // in milliseconds, if not applicable -1
+    jitter: 146 // in milliseconds, if not applicable -1
+  },
+  offset: 190412, // milliseconds from exam start
 }
 ```
 
@@ -239,6 +286,12 @@ Subscribe to proctorio break exceeded events.
 
 #### `observe.breakGiven(callback)`
 Subscribe to proctorio break given events.
+
+#### `observe.connectionUnstable(callback)`
+Subscribe to proctorio connection unstable events.
+
+#### `observe.connectionKickout(callback)`
+Subscribe to proctorio connection kickout events.
 
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.

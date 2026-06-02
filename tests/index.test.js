@@ -117,7 +117,8 @@ describe('Observe Class Tests', () => {
                 { type: "endDeskScan", method: 'endDeskScan' },
                 { type: "endExam", method: 'endExam' },
                 { type: "examCloseCode", method: 'examCloseCode' },
-                { type: "proctorKickedOut", method: 'proctorKickedOut' }
+                { type: "proctorKickedOut", method: 'proctorKickedOut' },
+                { type: "connectionKickout", method: 'connectionKickout' }
             ];
 
             events.forEach(({ type, method }) => {
@@ -144,7 +145,8 @@ describe('Observe Class Tests', () => {
                 { type: "breakStarted", method: 'breakStarted'},
                 { type: "breakEnded", method: 'breakEnded'},
                 { type: "breakExceeded", method: 'breakExceeded'},
-                { type: "breakGiven", method: 'breakGiven'}
+                { type: "breakGiven", method: 'breakGiven'},
+                { type: "connectionUnstable", method: 'connectionUnstable' }
             ];
 
             events.forEach(({ type, method }) => {

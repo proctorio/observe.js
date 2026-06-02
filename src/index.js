@@ -26,7 +26,8 @@ class Observe {
         this.#T.END_DESK_SCAN,
         this.#T.END_EXAM,
         this.#T.EXAM_CLOSE_CODE,
-        this.#T.PROCTOR_KICKED_OUT
+        this.#T.PROCTOR_KICKED_OUT,
+        this.#T.CONNECTION_KICKOUT
     ]);
 
     #multipleTriggerTypes = new Set([
@@ -36,7 +37,8 @@ class Observe {
         this.#T.BREAK_STARTED,
         this.#T.BREAK_ENDED,
         this.#T.BREAK_EXCEEDED,
-        this.#T.BREAK_GIVEN
+        this.#T.BREAK_GIVEN,
+        this.#T.CONNECTION_UNSTABLE
     ]);
 
     #initConnection() {
@@ -156,6 +158,14 @@ class Observe {
 
     breakGiven(callback) {
         this.#register(this.#T.BREAK_GIVEN, callback)
+    }
+
+    connectionUnstable(callback) {
+        this.#register(this.#T.CONNECTION_UNSTABLE, callback)
+    }
+
+    connectionKickout(callback) {
+        this.#register(this.#T.CONNECTION_KICKOUT, callback)
     }
 }
 
