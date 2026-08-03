@@ -107,6 +107,50 @@ observe.breakExceeded((data) => {
 observe.breakGiven((data) => {
   console.log('Proctor gave break at offset:', data.offset);
 });
+
+// Listen for additional camera events
+
+// Listen for additional camera connected
+observe.additionalCameraConnected((data) => {
+  console.log('Additional camera connected at offset', data.offset);
+});
+
+// Listen for additional camera disconnected
+observe.additionalCameraDisconnected((data) => {
+  console.log('Additional camera disconnected at offset', data.offset);
+});
+
+// Listen for additional camera rotated
+observe.additionalCameraRotated((data) => {
+  console.log('Additional camera rotated at offset', data.offset);
+});
+
+// listen for additional camera rotation cleared
+observe.additionalCameraRotationCleared((data) => {
+  console.log('Additional camera rotation cleared at offset', data.offset);
+});
+
+// Listen for additional camera obstructed
+observe.additionalCameraObstructed((data) => {
+  console.log('Additional camera obstructed at offset', data.offset);
+});
+
+// Listen for additional camera obstruction cleared
+observe.additionalCameraObstructionCleared((data) => {
+  console.log('Additional camera obstruction cleared at offset', data.offset);
+});
+
+// Listen for desk scan events
+
+// Listen for desk scan started
+observe.startDeskScan((data) => {
+  console.log(`Desk scan started with ${data.mode === 2 ? 'mobile' : 'main'} camera at offset ${data.offset}`);
+});
+
+// Listen for desk scan ended
+observe.endDeskScan((data) => {
+    console.log(`Desk scan ended with ${data.mode === 2 ? 'mobile' : 'main'} camera at offset ${data.offset}`);
+});
 ```
 
 ## Supported Events
@@ -116,8 +160,6 @@ These events trigger only once during the exam lifecycle:
 
 - **`startExam`** - Fired when the exam officially begins
 - **`takeExam`** - Fired when the user starts taking the exam
-- **`startDeskScan`** - Fired when desk scanning process starts
-- **`endDeskScan`** - Fired when desk scanning process completes
 - **`endExam`** - Fired when exam ending logic is triggered
 - **`examCloseCode`** - Fired when exam closes with a specific close code
 - **`proctorKickedOut`** - Fired when a sudent is kicked out by live proctor during an exam
@@ -133,6 +175,14 @@ These events trigger only once during the exam lifecycle:
 - **`breakEnded`** - Fired when a break ends
 - **`breakExceeded`** - Fired when the candidate exceeds the break duration
 - **`breakGiven`** - Fired when a break is given by proctor
+- **`additionalCameraConnected`** - Fired when additional camera connects
+- **`additionalCameraDisconnected`** - Fired when additional camera disconnects
+- **`additionalCameraRotated`** - Fired when additional camera rotation is detected
+- **`additionalCameraRotationCleared`** - Fired when additional camera rotation is cleared
+- **`additionalCameraObstructed`** - Fired when additional camera is obstructed
+- **`additionalCameraObstructionCleared`** - Fired when additional camera obstruction is cleared
+- **`startDeskScan`** - Fired when desk scanning process starts
+- **`endDeskScan`** - Fired when desk scanning process completes
 
 ### Sending requests through post message
 - **`proctorioStatusRequest`** - Send message to check if Proctorio is active on exam
@@ -147,6 +197,14 @@ All events include a `data` object. All event `data` objects, except for those r
   offset: 1000 // milliseconds from exam start
 }
 ```
+### startDeskScan and endDeskScan Event Data
+```javascript
+{
+  offset: 1000, // milliseconds from exam start
+  mode: 1 // 1 - webcam, 2 - mobile
+}
+```
+
 
 ### examCloseCode Event
 ```javascript
@@ -173,7 +231,8 @@ All events include a `data` object. All event `data` objects, except for those r
     hardware_change_detected: false,
     external_action_detected: false,
     webcam_obscured_detected: false,
-    mobile_phone_detected: false
+    mobile_phone_detected: false,
+    candidate_substitution_detected: false
   }
 }
 ```
@@ -239,6 +298,24 @@ Subscribe to proctorio break exceeded events.
 
 #### `observe.breakGiven(callback)`
 Subscribe to proctorio break given events.
+
+#### `observe.additionalCameraConnected(callback)`
+Subscribe to proctorio additional camera connected events.
+
+#### `observe.additionalCameraDisconnected(callback)`
+Subscribe to proctorio additional camera disconnected events.
+
+#### `observe.additionalCameraRotated(callback)`
+Subscribe to proctorio additional camera rotated events.
+
+#### `observe.additionalCameraRotationCleared(callback)`
+Subscribe to proctorio additional camera rotation cleared events.
+
+#### `observe.additionalCameraObstructed(callback)`
+Subscribe to proctorio additional camera obstructed events.
+
+#### `observe.additionalCameraObstructionCleared(callback)`
+Subscribe to proctorio additional camera obstruction cleared events.
 
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.

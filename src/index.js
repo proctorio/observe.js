@@ -22,8 +22,6 @@ class Observe {
     #triggerOnceTypes = new Set([
         this.#T.START_EXAM,
         this.#T.TAKE_EXAM,
-        this.#T.START_DESK_SCAN,
-        this.#T.END_DESK_SCAN,
         this.#T.END_EXAM,
         this.#T.EXAM_CLOSE_CODE,
         this.#T.PROCTOR_KICKED_OUT
@@ -36,7 +34,15 @@ class Observe {
         this.#T.BREAK_STARTED,
         this.#T.BREAK_ENDED,
         this.#T.BREAK_EXCEEDED,
-        this.#T.BREAK_GIVEN
+        this.#T.BREAK_GIVEN,
+        this.#T.ADDITIONAL_CAMERA_CONNECTED,
+        this.#T.ADDITIONAL_CAMERA_DISCONNECTED,
+        this.#T.ADDITIONAL_CAMERA_ROTATED,
+        this.#T.ADDITIONAL_CAMERA_ROTATION_CLEARED,
+        this.#T.ADDITIONAL_CAMERA_OBSTRUCTED,
+        this.#T.ADDITIONAL_CAMERA_OBSTRUCTION_CLEARED,
+        this.#T.START_DESK_SCAN,
+        this.#T.END_DESK_SCAN
     ]);
 
     #initConnection() {
@@ -156,6 +162,30 @@ class Observe {
 
     breakGiven(callback) {
         this.#register(this.#T.BREAK_GIVEN, callback)
+    }
+
+    additionalCameraConnected(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_CONNECTED, callback)
+    }
+
+    additionalCameraDisconnected(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_DISCONNECTED, callback)
+    }
+
+    additionalCameraRotated(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_ROTATED, callback)
+    }
+
+    additionalCameraRotationCleared(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_ROTATION_CLEARED, callback)
+    }
+
+    additionalCameraObstructed(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_OBSTRUCTED, callback)
+    }
+
+    additionalCameraObstructionCleared(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_OBSTRUCTION_CLEARED, callback)
     }
 }
 
