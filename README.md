@@ -125,19 +125,19 @@ observe.additionalCameraRotated((data) => {
   console.log('Additional camera rotated at offset', data.offset);
 });
 
-// listen for additional camera rotation cleared
+// Listen for additional camera rotation cleared
 observe.additionalCameraRotationCleared((data) => {
   console.log('Additional camera rotation cleared at offset', data.offset);
 });
 
-// Listen for additional camera obstructed
-observe.additionalCameraObstructed((data) => {
-  console.log('Additional camera obstructed at offset', data.offset);
+// Listen for additional camera obscured
+observe.additionalCameraObscured((data) => {
+  console.log('Additional camera obscured at offset', data.offset);
 });
 
-// Listen for additional camera obstruction cleared
-observe.additionalCameraObstructionCleared((data) => {
-  console.log('Additional camera obstruction cleared at offset', data.offset);
+// Listen for additional camera obscured cleared
+observe.additionalCameraObscuredCleared((data) => {
+  console.log('Additional camera obscured cleared at offset', data.offset);
 });
 
 // Listen for desk scan events
@@ -179,8 +179,8 @@ These events trigger only once during the exam lifecycle:
 - **`additionalCameraDisconnected`** - Fired when additional camera disconnects
 - **`additionalCameraRotated`** - Fired when additional camera rotation is detected
 - **`additionalCameraRotationCleared`** - Fired when additional camera rotation is cleared
-- **`additionalCameraObstructed`** - Fired when additional camera is obstructed
-- **`additionalCameraObstructionCleared`** - Fired when additional camera obstruction is cleared
+- **`additionalCameraObscured`** - Fired when additional camera is obscured
+- **`additionalCameraObscuredCleared`** - Fired when additional camera is no longer obscured
 - **`startDeskScan`** - Fired when desk scanning process starts
 - **`endDeskScan`** - Fired when desk scanning process completes
 
@@ -311,11 +311,11 @@ Subscribe to proctorio additional camera rotated events.
 #### `observe.additionalCameraRotationCleared(callback)`
 Subscribe to proctorio additional camera rotation cleared events.
 
-#### `observe.additionalCameraObstructed(callback)`
-Subscribe to proctorio additional camera obstructed events.
+#### `observe.additionalCameraObscured(callback)`
+Subscribe to proctorio additional camera obscured events.
 
-#### `observe.additionalCameraObstructionCleared(callback)`
-Subscribe to proctorio additional camera obstruction cleared events.
+#### `observe.additionalCameraObscuredCleared(callback)`
+Subscribe to proctorio events when the additional camera is no longer obscured.
 
 **Parameters:**
 - `callback` (function): Function to execute when the event fires. Receives event data as parameter.

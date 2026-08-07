@@ -39,8 +39,8 @@ class Observe {
         this.#T.ADDITIONAL_CAMERA_DISCONNECTED,
         this.#T.ADDITIONAL_CAMERA_ROTATED,
         this.#T.ADDITIONAL_CAMERA_ROTATION_CLEARED,
-        this.#T.ADDITIONAL_CAMERA_OBSTRUCTED,
-        this.#T.ADDITIONAL_CAMERA_OBSTRUCTION_CLEARED,
+        this.#T.ADDITIONAL_CAMERA_OBSCURED,
+        this.#T.ADDITIONAL_CAMERA_OBSCURED_CLEARED,
         this.#T.START_DESK_SCAN,
         this.#T.END_DESK_SCAN
     ]);
@@ -180,8 +180,8 @@ class Observe {
         this.#register(this.#T.ADDITIONAL_CAMERA_ROTATION_CLEARED, callback)
     }
 
-    additionalCameraObstructed(callback) {
-        this.#register(this.#T.ADDITIONAL_CAMERA_OBSTRUCTED, callback)
+    additionalCameraObscured(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_OBSCURED, callback)
     }
 
     additionalCameraObstructionCleared(callback) {

@@ -147,7 +147,7 @@ describe('Observe Class Tests', () => {
                 { type: "additionalCameraDisconnected", method: 'additionalCameraDisconnected'},
                 { type: "additionalCameraRotated", method: 'additionalCameraRotated'},
                 { type: "additionalCameraRotationCleared", method: 'additionalCameraRotationCleared'},
-                { type: "additionalCameraObstructed", method: 'additionalCameraObstructed'},
+                { type: "additionalCameraObscured", method: 'additionalCameraObscured'},
                 { type: "additionalCameraObstructionCleared", method: 'additionalCameraObstructionCleared'},
                 { type: "startDeskScan", method: 'startDeskScan' },
                 { type: "endDeskScan", method: 'endDeskScan' }

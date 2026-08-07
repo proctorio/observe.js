@@ -20,8 +20,8 @@ const OBSERVE_TYPES = {
     ADDITIONAL_CAMERA_DISCONNECTED: "additionalCameraDisconnected",
     ADDITIONAL_CAMERA_ROTATED: "additionalCameraRotated",
 	ADDITIONAL_CAMERA_ROTATION_CLEARED: "additionalCameraRotationCleared",
-	ADDITIONAL_CAMERA_OBSTRUCTED: "additionalCameraObstructed",
-	ADDITIONAL_CAMERA_OBSTRUCTION_CLEARED: "additionalCameraObstructionCleared"
+	ADDITIONAL_CAMERA_OBSCURED: "additionalCameraObscured",
+	ADDITIONAL_CAMERA_OBSCURED_CLEARED: "additionalCameraObscuredCleared"
 }
 
 export default OBSERVE_TYPES;
