@@ -184,8 +184,8 @@ class Observe {
         this.#register(this.#T.ADDITIONAL_CAMERA_OBSCURED, callback)
     }
 
-    additionalCameraObstructionCleared(callback) {
-        this.#register(this.#T.ADDITIONAL_CAMERA_OBSTRUCTION_CLEARED, callback)
+    additionalCameraObscuredCleared(callback) {
+        this.#register(this.#T.ADDITIONAL_CAMERA_OBSCURED_CLEARED, callback)
     }
 }
 
