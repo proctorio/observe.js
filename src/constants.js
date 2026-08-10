@@ -15,7 +15,13 @@ const OBSERVE_TYPES = {
     BREAK_STARTED: "breakStarted",
     BREAK_ENDED: "breakEnded",
     BREAK_EXCEEDED: "breakExceeded",
-    BREAK_GIVEN: "breakGiven"
+    BREAK_GIVEN: "breakGiven",
+    ADDITIONAL_CAMERA_CONNECTED: "additionalCameraConnected",
+    ADDITIONAL_CAMERA_DISCONNECTED: "additionalCameraDisconnected",
+    ADDITIONAL_CAMERA_ROTATED: "additionalCameraRotated",
+	ADDITIONAL_CAMERA_ROTATION_CLEARED: "additionalCameraRotationCleared",
+	ADDITIONAL_CAMERA_OBSCURED: "additionalCameraObscured",
+	ADDITIONAL_CAMERA_OBSCURED_CLEARED: "additionalCameraObscuredCleared"
 }
 
 export default OBSERVE_TYPES;

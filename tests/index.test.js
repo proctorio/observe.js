@@ -113,8 +113,6 @@ describe('Observe Class Tests', () => {
 
         test('should process all one-time event types', () => {
             const events = [
-                { type: "startDeskScan", method: 'startDeskScan' },
-                { type: "endDeskScan", method: 'endDeskScan' },
                 { type: "endExam", method: 'endExam' },
                 { type: "examCloseCode", method: 'examCloseCode' },
                 { type: "proctorKickedOut", method: 'proctorKickedOut' }
@@ -144,7 +142,15 @@ describe('Observe Class Tests', () => {
                 { type: "breakStarted", method: 'breakStarted'},
                 { type: "breakEnded", method: 'breakEnded'},
                 { type: "breakExceeded", method: 'breakExceeded'},
-                { type: "breakGiven", method: 'breakGiven'}
+                { type: "breakGiven", method: 'breakGiven'},
+                { type: "additionalCameraConnected", method: 'additionalCameraConnected'},
+                { type: "additionalCameraDisconnected", method: 'additionalCameraDisconnected'},
+                { type: "additionalCameraRotated", method: 'additionalCameraRotated'},
+                { type: "additionalCameraRotationCleared", method: 'additionalCameraRotationCleared'},
+                { type: "additionalCameraObscured", method: 'additionalCameraObscured'},
+                { type: "additionalCameraObscuredCleared", method: 'additionalCameraObscuredCleared'},
+                { type: "startDeskScan", method: 'startDeskScan' },
+                { type: "endDeskScan", method: 'endDeskScan' }
             ];
 
             events.forEach(({ type, method }) => {
