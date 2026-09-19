@@ -54,7 +54,7 @@
     "@rollup/plugin-terser": "1.0.0",
     "jest": "30.5.1",
     "jest-environment-jsdom": "30.5.1",
-    "rollup": "4.63.1"
+    "rollup": "4.63.3"
   },
   "jest": {
     "testEnvironment": "jsdom"
