@@ -1,5 +1,10 @@
 lib/
 
+# Playwright
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
 # Logs
 logs
 *.log

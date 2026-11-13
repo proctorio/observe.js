@@ -26,6 +26,7 @@ export default [
       file: 'lib/index.esm.js',
       format: 'esm',
       sourcemap: true,
+      sourcemapExcludeSources: true,
       banner: licenseBanner
     },
     plugins: [resolve(), commonjs(), terser({
@@ -41,6 +42,7 @@ export default [
       file: 'lib/index.cjs.js',
       format: 'cjs',
       sourcemap: true,
+      sourcemapExcludeSources: true,
       exports: 'named',
       banner: licenseBanner,
     },
@@ -54,6 +56,7 @@ export default [
       format: 'iife',
       name,
       sourcemap: true,
+      sourcemapExcludeSources: true,
       exports: 'named',
       esModule: false,
       banner: licenseBanner

@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<body>
+<div id="log"></div>
+<script type="module">
+    import { Observe } from '/lib/index.esm.js';
+
+    const observe = new Observe();
+
+    const log = (label, data) => {
+        document.getElementById('log').textContent += `${label}:${JSON.stringify(data)};`;
+    };
+
+    observe.proctorKickedOut((data) => log('proctorKickedOut', data));
+    observe.flags((data) => log('flags', data));
+
+    // Simulates a legitimate extension content script, which bridges into the
+    // same window/origin it's injected into.
+    window.__triggerSelfMessage = (type, payload) => {
+        window.postMessage({ type, payload }, window.location.origin);
+    };
+</script>
+</body>
+</html>

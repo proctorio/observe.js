@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<body>
+<div id="log"></div>
+<iframe id="child"></iframe>
+<script>
+    const params = new URLSearchParams(location.search);
+    document.getElementById('child').src = params.get('childSrc');
+
+    // Plays the role of the real top-level page (e.g. the LMS): answers the
+    // SDK's proctorio_status handshake and records the connection broadcast.
+    window.addEventListener('message', (e) => {
+        if (Array.isArray(e.data) && e.data[0] === 'proctorio_status') {
+            e.source.postMessage({ type: 'proctorio_status', payload: { active: true } }, e.origin);
+        }
+
+        if (e.data && e.data.type === 'proctorioConnectionInit') {
+            document.getElementById('log').textContent += `connectionInit(${e.origin});`;
+        }
+    });
+</script>
+</body>
+</html>

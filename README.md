@@ -40,6 +40,28 @@ const observe = new Observe();
 // Create observe instance (singleton)
 const observe = new ObserveSDK.Observe();
 ```
+
+By default, the SDK only accepts incoming messages from the current page's own origin and from `https://getproctorio.com`, and only broadcasts to the current page's own origin. This works out of the box when the page that creates the `Observe` instance is the top-level window.
+
+**If the page running the SDK is itself embedded in a cross-origin iframe** (e.g. an LMS embeds the exam content in an iframe), `window.top` is a *different* origin than the iframe, and that origin can't be auto-detected (the browser blocks reading a cross-origin parent's location). You must pass `parentOrigin` explicitly - the constructor throws immediately if it detects a cross-origin `window.top` and `parentOrigin` wasn't provided, rather than silently falling back to the iframe's own origin and leaving the `proctorioConnectionInit` broadcast and the response side of the `proctorioStatusResponse` handshake to fail with no visible error:
+
+```javascript
+const observe = new Observe({
+  // The origin of the page embedding this iframe - required so the SDK can
+  // reach window.top and so it trusts replies coming back from it.
+  parentOrigin: "https://your_lms_domain",
+  // Any other origins allowed to trigger registered callbacks
+  trustedOrigins: []
+});
+```
+
+Note `proctorioStatusRequest()` is independent of `parentOrigin`: it always defaults to `https://getproctorio.com` unless you pass an origin explicitly. If you're embedded behind a custom LMS domain, pass it to the call itself:
+
+```javascript
+observe.proctorioStatusRequest("https://your_lms_domain");
+```
+
+`parentOrigin` is automatically added to the trusted origin allowlist, so you don't need to repeat it in `trustedOrigins`.
 ### 2. Listen for events
 ```javascript
 // Listen for exam start

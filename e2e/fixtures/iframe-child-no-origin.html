@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+<body>
+<div id="log"></div>
+<script type="module">
+    import { Observe } from '/lib/index.esm.js';
+
+    // Deliberately omits parentOrigin while embedded cross-origin, to exercise
+    // the guard against the silent self-origin fallback.
+    try {
+        new Observe();
+        document.getElementById('log').textContent = 'constructed:no-error';
+    } catch (e) {
+        document.getElementById('log').textContent = `threw:${e.message}`;
+    }
+</script>
+</body>
+</html>
