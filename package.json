@@ -51,13 +51,13 @@
   "homepage": "https://github.com/proctorio/observe.js#readme",
   "sideEffects": true,
   "devDependencies": {
-    "@playwright/test": "1.65.0",
+    "@playwright/test": "1.65.1",
     "@rollup/plugin-commonjs": "29.0.3",
     "@rollup/plugin-node-resolve": "16.0.3",
-    "@rollup/plugin-terser": "1.0.0",
-    "jest": "30.5.1",
-    "jest-environment-jsdom": "30.5.1",
-    "rollup": "4.63.1"
+    "@rollup/plugin-terser": "1.0.2",
+    "jest": "30.5.2",
+    "jest-environment-jsdom": "30.5.2",
+    "rollup": "4.68.5"
   },
   "jest": {
     "testEnvironment": "jsdom",
